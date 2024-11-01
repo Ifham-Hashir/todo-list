@@ -8,9 +8,11 @@ export default function() {
   }
   
   const todo1 = new Todo("Read Book", "null", "1-11-2024", "High");
+  const todo2 = new Todo("Read Book", "null", "12-11-2024", "Low");
   
   function addToDo(){
     myToDo.push(todo1);
+    myToDo.push(todo2);
   }
 
   addToDo();
