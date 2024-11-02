@@ -1,5 +1,13 @@
+export const projects = [];
 export default function() {
-  const myToDo = [];
+  function Project(projectName, todoList){
+    this.projectName = projectName;
+    this.todoList = todoList || [];
+  }
+
+  const defaultTodo = new Project("defaultTodo", []);
+  const arabic = new Project("arabic", []);
+
   function Todo(title, description, dueDate, priority) {
     this.title = title;
     this.description = description;
@@ -8,13 +16,17 @@ export default function() {
   }
   
   const todo1 = new Todo("Read Book", "null", "1-11-2024", "High");
-  const todo2 = new Todo("Read Book", "null", "12-11-2024", "Low");
+  const todo2 = new Todo("Read Book2", "null", "12-11-2024", "Low");
+  const todo3 = new Todo("Divine Speech", "Watch", "10/11/2024", "High");
   
   function addToDo(){
-    myToDo.push(todo1);
-    myToDo.push(todo2);
+    defaultTodo.todoList.push(todo1);
+    defaultTodo.todoList.push(todo2);
+    arabic.todoList.push(todo3);
   }
 
   addToDo();
-  console.log(myToDo);
+  projects.push(defaultTodo);
+  projects.push(arabic);
+  console.log(projects);
 }
