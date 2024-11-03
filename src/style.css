@@ -30,6 +30,7 @@ body{
 
 .todo-container {
   padding: 30px;
+  
 }
 
 ul{
@@ -51,7 +52,21 @@ a{
 
 .todo-card{
   border: 2px solid black;
-  height: 40px;
+  height: 50px;
   display: flex;
-  gap: 10px;
+  gap: 25px;
+  margin-top: 10px;
+  text-wrap: none;
+  min-width: max-content;
+  align-items: center;
+  padding: 10px;
+}
+
+.remove-btn, .edit-btn{
+  height: 20px;
+  width: 50px;
+}
+
+.edit-btn{
+  margin-left: auto;
 }

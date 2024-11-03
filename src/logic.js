@@ -5,7 +5,7 @@ export default function() {
     this.todoList = todoList || [];
   }
 
-  const defaultTodo = new Project("defaultTodo", []);
+  const general = new Project("general", []);
   const arabic = new Project("arabic", []);
 
   function Todo(title, dueDate, priority) {
@@ -19,13 +19,13 @@ export default function() {
   const todo3 = new Todo("Divine Speech", "10/11/2024", "High");
   
   function addToDo(){
-    defaultTodo.todoList.push(todo1);
-    defaultTodo.todoList.push(todo2);
+    general.todoList.push(todo1);
+    general.todoList.push(todo2);
     arabic.todoList.push(todo3);
   }
 
   addToDo();
-  projects.push(defaultTodo);
+  projects.push(general);
   projects.push(arabic);
   console.log(projects);
 }

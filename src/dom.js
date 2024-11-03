@@ -19,36 +19,53 @@ export default function() {
       while (todoContainer.firstChild) {
         todoContainer.removeChild(todoContainer.firstChild);
       }
+
+      const projectTitle = document.createElement("h1");
+      projectTitle.textContent = `${projects[i].projectName.toUpperCase()}`
+      todoContainer.appendChild(projectTitle);
+
       for(let j = 0; j < projects[i].todoList.length; j++){
         if(!projects[i].todoList[j]){
           return;
         }
         else{
+
           const todoCard = document.createElement("div");
           todoCard.classList.add("todo-card");
           todoContainer.appendChild(todoCard);
           todoCard.dataset.index = j;
-  
+          
+          const checkBox = document.createElement("INPUT");
+          checkBox.setAttribute("type", "checkbox");
+          todoCard.appendChild(checkBox);
+
           const todoTitle = document.createElement("div");
           todoCard.appendChild(todoTitle);
           todoTitle.textContent = `${projects[i].todoList[j].title}`;
   
           const todoDueDate = document.createElement("div");
           todoCard.appendChild(todoDueDate);
-          todoDueDate.textContent = `${projects[i].todoList[j].dueDate}`;
+          todoDueDate.textContent = `Due Date: ${projects[i].todoList[j].dueDate}`;
   
           const todoPriority = document.createElement("div");
           todoCard.appendChild(todoPriority);
-          todoPriority.textContent = `${projects[i].todoList[j].priority}`;
-  
+          todoPriority.textContent = `Priority ${projects[i].todoList[j].priority}`;
+
+          const editBtn = document.createElement("button");
+          editBtn.classList.add("edit-btn");
+          todoCard.appendChild(editBtn);
+          editBtn.textContent = "Edit";
+          
           const removeBtn = document.createElement("button");
+          removeBtn.classList.add("remove-btn");
           todoCard.appendChild(removeBtn);
-          removeBtn.textContent = "X";
+          removeBtn.textContent = "✖";
   
           removeBtn.addEventListener("click", () => {
             delete projects[i].todoList[j];
             todoCard.remove();
           });
+
         }
         //alert(projects[i].todoList[j].title);
       }
