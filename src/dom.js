@@ -8,18 +8,33 @@ export default function() {
   projectList.classList.add("project-list");
 
   for(let i = 0; i < projects.length; i++){
-    let listItem = document.createElement("li");
-    let link = document.createElement("a");
+    const listItem = document.createElement("li");
+    const link = document.createElement("a");
     link.textContent = `# ${projects[i].projectName.toLowerCase()}`;
     link.href = "#";
     projectList.appendChild(listItem);
     listItem.appendChild(link);
 
-    link.addEventListener("click", () => {
-      while (todoContainer.firstChild) {
-        todoContainer.removeChild(todoContainer.firstChild);
-      }
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add("remove-btn");
+    removeBtn.textContent = "✖";
+    listItem.appendChild(removeBtn);
 
+    removeBtn.addEventListener("click", () => {
+      delete projects[i];
+      listItem.remove();
+      if(document.querySelectorAll("div") && document.querySelector("h1")){
+        todoContainer.querySelectorAll("div").forEach(e => e.remove());
+        todoContainer.querySelectorAll("h1").forEach(e => e.remove());
+      }
+    });
+
+    link.addEventListener("click", () => {
+      if(document.querySelectorAll("div") && document.querySelector("h1")){
+        todoContainer.querySelectorAll("div").forEach(e => e.remove());
+        todoContainer.querySelectorAll("h1").forEach(e => e.remove());
+      }
+      
       const projectTitle = document.createElement("h1");
       projectTitle.textContent = `${projects[i].projectName.toUpperCase()}`
       todoContainer.appendChild(projectTitle);
@@ -49,7 +64,7 @@ export default function() {
   
           const todoPriority = document.createElement("div");
           todoCard.appendChild(todoPriority);
-          todoPriority.textContent = `Priority ${projects[i].todoList[j].priority}`;
+          todoPriority.textContent = `Priority: ${projects[i].todoList[j].priority}`;
 
           const editBtn = document.createElement("button");
           editBtn.classList.add("edit-btn");
@@ -58,8 +73,8 @@ export default function() {
           
           const removeBtn = document.createElement("button");
           removeBtn.classList.add("remove-btn");
-          todoCard.appendChild(removeBtn);
           removeBtn.textContent = "✖";
+          todoCard.appendChild(removeBtn);
   
           removeBtn.addEventListener("click", () => {
             delete projects[i].todoList[j];
