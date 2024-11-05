@@ -1,4 +1,5 @@
 import logic from "./logic.js";
+import { Todo } from "./logic.js";
 logic();
 import { projects } from "./logic.js";
 export default function() {
@@ -23,28 +24,51 @@ export default function() {
     removeBtn.addEventListener("click", () => {
       delete projects[i];
       listItem.remove();
-      if(document.querySelectorAll("div") && document.querySelector("h1")){
-        todoContainer.querySelectorAll("div").forEach(e => e.remove());
-        todoContainer.querySelectorAll("h1").forEach(e => e.remove());
+      while (todoContainer.firstChild) {
+        todoContainer.removeChild(todoContainer.firstChild);
       }
     });
 
     link.addEventListener("click", () => {
-      if(document.querySelectorAll("div") && document.querySelector("h1")){
-        todoContainer.querySelectorAll("div").forEach(e => e.remove());
-        todoContainer.querySelectorAll("h1").forEach(e => e.remove());
+      while (todoContainer.firstChild) {
+        todoContainer.removeChild(todoContainer.firstChild);
       }
       
       const projectTitle = document.createElement("h1");
       projectTitle.textContent = `${projects[i].projectName.toUpperCase()}`
       todoContainer.appendChild(projectTitle);
 
+      displayTodoList();
+
+      const addtodoBtn = document.createElement("button");
+      addtodoBtn.classList.add("addtodo-btn");
+      addtodoBtn.textContent = "+ Add";
+      todoContainer.appendChild(addtodoBtn);
+
+      addtodoBtn.addEventListener("click", inputTodo);
+
+    });
+
+    function inputTodo(){
+      const todoObj = new Todo(prompt("Title"), prompt("DueDate"), prompt("Priority"));
+      projects[i].todoList.push(todoObj);
+      while (todoContainer.firstChild) {
+        todoContainer.removeChild(todoContainer.firstChild);
+      }
+      displayTodoList();
+      const addtodoBtn = document.createElement("button");
+      addtodoBtn.classList.add("addtodo-btn");
+      addtodoBtn.textContent = "+ Add";
+      todoContainer.appendChild(addtodoBtn);
+
+      addtodoBtn.addEventListener("click", inputTodo);
+    }
+    function displayTodoList(){
       for(let j = 0; j < projects[i].todoList.length; j++){
         if(!projects[i].todoList[j]){
           return;
         }
         else{
-
           const todoCard = document.createElement("div");
           todoCard.classList.add("todo-card");
           todoContainer.appendChild(todoCard);
@@ -53,7 +77,7 @@ export default function() {
           const checkBox = document.createElement("INPUT");
           checkBox.setAttribute("type", "checkbox");
           todoCard.appendChild(checkBox);
-
+  
           const todoTitle = document.createElement("div");
           todoCard.appendChild(todoTitle);
           todoTitle.textContent = `${projects[i].todoList[j].title}`;
@@ -65,7 +89,7 @@ export default function() {
           const todoPriority = document.createElement("div");
           todoCard.appendChild(todoPriority);
           todoPriority.textContent = `Priority: ${projects[i].todoList[j].priority}`;
-
+  
           const editBtn = document.createElement("button");
           editBtn.classList.add("edit-btn");
           todoCard.appendChild(editBtn);
@@ -80,11 +104,9 @@ export default function() {
             delete projects[i].todoList[j];
             todoCard.remove();
           });
-
         }
-        //alert(projects[i].todoList[j].title);
       }
-    });
+    }
   }
   sideBar.appendChild(projectList);
 }
