@@ -62,14 +62,13 @@ a{
   display: flex;
   gap: 25px;
   margin-top: 10px;
-  margin-bottom: 10px;
   text-wrap: none;
   min-width: max-content;
   align-items: center;
   padding: 10px;
 }
 
-.remove-btn, .edit-btn, .addtodo-btn{
+.remove-btn, .edit-btn{
   height: 20px;
   width: 50px;
 }
