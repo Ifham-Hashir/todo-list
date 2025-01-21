@@ -1,12 +1,17 @@
 import { projects } from "./projects";
 import { createProject } from "./projects";
-import { removeProject } from "./projects";
+import { deleteProject } from "./projects";
+import { removeTodo } from "./todo";
+import { addTodo } from "./todo";
 
 const project = createProject("Default");
-project.addTodo("Read Book", "Divine Speech", "01-02-2025", "medium");
-project.addTodo("Do Homework", "Maths", "21-01-2025", "high");
 projects.push(project);
-console.log(projects);
 
-//removeProject("Default");
-//console.log(projects);
+const todo1 = addTodo("read book", "harry potter", "22-01-2025", "low");
+const todo2 = addTodo("watch movie", "harry potter", "22-01-2025", "low");
+project.todos.push(todo1);
+project.todos.push(todo2);
+
+removeTodo("Default", "read book");
+
+console.log(projects);
