@@ -3,6 +3,7 @@ import { createProject } from "./projects";
 import { deleteProject } from "./projects";
 import { removeTodo } from "./todo";
 import { addTodo } from "./todo";
+import { renderProjects } from "./dom";
 import "./styles.css";
 
 const project = createProject("Default");
@@ -15,3 +16,5 @@ project.todos.push(todo2);
 
 
 console.log(projects);
+
+renderProjects();
