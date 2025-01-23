@@ -6,7 +6,19 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="project-section"><h2>Projects</h2></div>
+  <dialog id="projectDialog">
+    <form id="projectForm">
+        <label for="projectName">Project Name:</label>
+        <input type="text" id="projectName" required />
+        <div class="dialog-buttons">
+          <button type="submit">Add</button>
+          <button type="button" id="cancelBtn">Cancel</button>
+        </div>
+    </form>
+</dialog>
+  <div class="project-section">
+    <button class = "add-project-btn">Add Projects</button>
+  </div>
   <div class="todo-section"><h2>Todos</h2></div>
 </body>
 </html>
