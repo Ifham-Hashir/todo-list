@@ -26,13 +26,16 @@ body{
   margin-top: 16px;
 }
 
-.project-name{
+.project-div{
   display: flex;
   justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.project-name{
   cursor: pointer;
   font-size: larger;
   font-weight: 800;
-  margin-bottom: 12px;
 }
 
 .add-projects-btn, .delete-project-btn, .dialog-buttons > button {

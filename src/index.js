@@ -45,8 +45,6 @@ function addProject(name) {
   const ul = document.querySelector(".project-list");
   ul.remove();
   renderProjects();
-  deleteProjectBtn = document.querySelectorAll(".delete-project-btn");
-
 }
 
 projectForm.addEventListener("submit", (event) => {
