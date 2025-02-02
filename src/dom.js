@@ -50,6 +50,7 @@ export function renderTodos(index){
   for(let i = 0; i < projects[index].todos.length; i++){
     const todoDiv = document.createElement("div");
     todoDiv.setAttribute("data-index", i);
+    todoDiv.setAttribute("data-projectindex", index);
     todoDiv.classList.add("todo-div");
 
     const todoTitle = document.createElement("span");
@@ -70,5 +71,6 @@ export function renderTodos(index){
     todoDiv.appendChild(todoPriority);
     todoDiv.appendChild(delTodoBtn);
     todoList.appendChild(todoDiv);
+
   }
 }

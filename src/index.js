@@ -64,7 +64,7 @@ projectForm.addEventListener("submit", (event) => {
 renderProjects();
 
 
-addGlobalEventListener("click", ".delete-project-btn", e=> {
+addGlobalEventListener("click", ".delete-project-btn", e => {
   const index = e.target.parentNode.dataset.index;
   deleteProject(index);
   removeAllChild(projectList);
@@ -76,9 +76,18 @@ addGlobalEventListener("click", ".delete-project-btn", e=> {
   renderProjects();
 }, projectList);
 
-addGlobalEventListener("click", ".project-name", e=> {
+addGlobalEventListener("click", ".project-name", e => {
   const index = e.target.parentNode.dataset.index;
   removeAllChild(todoList);
   todoHead.textContent = projects[index].name;
   renderTodos(index);
 }, projectList);
+
+
+addGlobalEventListener("click", ".delete-todo-btn", e => {
+  const todoIndex = e.target.parentNode.dataset.index;
+  const projectIndex = e.target.parentNode.dataset.projectindex;
+  projects[projectIndex].todos.splice(todoIndex, 1);
+  removeAllChild(todoList);
+  renderTodos(projectIndex);
+}, todoList);
