@@ -1,8 +1,8 @@
 import { projects } from "./projects";
 import { createProject } from "./projects";
-import { removeTodo } from "./todo";
 import { addTodo } from "./todo";
 import { renderProjects } from "./dom";
+import { deleteProject } from "./projects";
 import "./styles.css";
 
 const project = createProject("Default");
@@ -20,16 +20,15 @@ const todo3 = addTodo("read book", "harry potter", "22-01-2025", "low");
 const todo4 = addTodo("watch movie", "harry potter", "22-01-2025", "low");
 project2.todos.push(todo3);
 project2.todos.push(todo4);
-
-
 console.log(projects);
-renderProjects();
+
 
 const projectDialog = document.getElementById("projectDialog");
 const projectForm = document.getElementById("projectForm");
 const projectNameInput = document.getElementById("projectName");
 const addProjectBtn = document.querySelector(".add-project-btn");
 const cancelBtn = document.getElementById("cancelBtn");
+const projectList = document.querySelector(".project-list");
 
 addProjectBtn.addEventListener("click", () => {
     projectDialog.showModal();  // Show the dialog box
@@ -42,8 +41,9 @@ cancelBtn.addEventListener("click", () => {
 function addProject(name) {
   const newProject = createProject(name);
   projects.push(newProject);
-  const ul = document.querySelector(".project-list");
-  ul.remove();
+  while(projectList.firstChild){
+    projectList.removeChild(projectList.firstChild);
+  }
   renderProjects();
 }
 
@@ -58,6 +58,21 @@ projectForm.addEventListener("submit", (event) => {
   console.log(projects);
 });
 
+renderProjects();
 
+function addGlobalEventListener(type, selector, callback) {
+  projectList.addEventListener(type, e =>{
+    if (e.target.matches(selector)){
+      callback(e);
+    }
+  })
+}
 
-
+addGlobalEventListener("click", ".delete-project-btn", e=> {
+  const index = e.target.parentNode.dataset.index;
+  deleteProject(index);
+  while(projectList.firstChild){
+    projectList.removeChild(projectList.firstChild);
+  }
+  renderProjects();
+})

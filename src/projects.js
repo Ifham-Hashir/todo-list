@@ -7,3 +7,6 @@ export function createProject(name){
   };
 }
 
+export function deleteProject(index){
+  projects.splice(index, 1);
+}
