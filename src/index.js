@@ -2,7 +2,10 @@ import { projects } from "./projects";
 import { createProject } from "./projects";
 import { addTodo } from "./todo";
 import { renderProjects } from "./dom";
+import { renderTodos } from "./dom";
 import { deleteProject } from "./projects";
+import { addGlobalEventListener } from "./dom";
+import { removeAllChild } from "./dom";
 import "./styles.css";
 
 const project = createProject("Default");
@@ -29,6 +32,8 @@ const projectNameInput = document.getElementById("projectName");
 const addProjectBtn = document.querySelector(".add-project-btn");
 const cancelBtn = document.getElementById("cancelBtn");
 const projectList = document.querySelector(".project-list");
+const todoHead = document.querySelector(".todo-head");
+const todoList = document.querySelector(".todo-list");
 
 addProjectBtn.addEventListener("click", () => {
     projectDialog.showModal();  // Show the dialog box
@@ -41,9 +46,7 @@ cancelBtn.addEventListener("click", () => {
 function addProject(name) {
   const newProject = createProject(name);
   projects.push(newProject);
-  while(projectList.firstChild){
-    projectList.removeChild(projectList.firstChild);
-  }
+  removeAllChild(projectList);
   renderProjects();
 }
 
@@ -60,19 +63,22 @@ projectForm.addEventListener("submit", (event) => {
 
 renderProjects();
 
-function addGlobalEventListener(type, selector, callback) {
-  projectList.addEventListener(type, e =>{
-    if (e.target.matches(selector)){
-      callback(e);
-    }
-  })
-}
 
 addGlobalEventListener("click", ".delete-project-btn", e=> {
   const index = e.target.parentNode.dataset.index;
   deleteProject(index);
-  while(projectList.firstChild){
-    projectList.removeChild(projectList.firstChild);
+  removeAllChild(projectList);
+  removeAllChild(todoList);
+  if(document.querySelector(".add-todo-btn")){
+    document.querySelector(".add-todo-btn").remove();
   }
+  todoHead.textContent = "";
   renderProjects();
-})
+}, projectList);
+
+addGlobalEventListener("click", ".project-name", e=> {
+  const index = e.target.parentNode.dataset.index;
+  removeAllChild(todoList);
+  todoHead.textContent = projects[index].name;
+  renderTodos(index);
+}, projectList);
