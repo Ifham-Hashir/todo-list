@@ -4,8 +4,5 @@ export function addTodo(title, description, dueDate, priority, status){
   return {title, description, dueDate, priority, status : "incomplete"};
 }
 
-export function deleteTodo(index){
-  
-}
 
 

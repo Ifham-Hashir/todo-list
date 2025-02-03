@@ -53,6 +53,16 @@ export function renderTodos(index){
     todoDiv.setAttribute("data-projectindex", index);
     todoDiv.classList.add("todo-div");
 
+    if(projects[index].todos[i].priority === "low"){
+      todoDiv.style.border = "2px solid green";
+    }
+    else if(projects[index].todos[i].priority === "mid"){
+      todoDiv.style.border = "2px solid blue";
+    }
+    else{
+      todoDiv.style.border = "2px solid red";
+    }
+
     const todoTitle = document.createElement("span");
     todoTitle.textContent = `Title: ${projects[index].todos[i].title}`;
 
