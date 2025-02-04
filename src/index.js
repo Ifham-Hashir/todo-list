@@ -6,13 +6,14 @@ import { renderTodos } from "./dom";
 import { deleteProject } from "./projects";
 import { addGlobalEventListener } from "./dom";
 import { removeAllChild } from "./dom";
+import { viewTodo } from "./dom";
 import "./styles.css";
 
 const project = createProject("Default");
 projects.push(project);
 
-const todo1 = addTodo("read book", "harry potter", "22-01-2025", "high");
-const todo2 = addTodo("watch movie", "harry potter", "22-01-2025", "low");
+const todo1 = addTodo("Study Arabic", "Read Dream Arabic Textbook", "7-02-2025", "high");
+const todo2 = addTodo("Todo-List", "Add the add todo functionality", "22-02-2025", "low");
 project.todos.push(todo1);
 project.todos.push(todo2);
 
@@ -34,6 +35,7 @@ const cancelBtn = document.getElementById("cancelBtn");
 const projectList = document.querySelector(".project-list");
 const todoHead = document.querySelector(".todo-head");
 const todoList = document.querySelector(".todo-list");
+const modal = document.querySelector(".view-todo-modal");
 
 
 addProjectBtn.addEventListener("click", () => {
@@ -85,8 +87,8 @@ addGlobalEventListener("click", ".project-name", e => {
 
 
 addGlobalEventListener("click", ".delete-todo-btn", e => {
-  const todoIndex = e.target.parentNode.dataset.index;
-  const projectIndex = e.target.parentNode.dataset.projectindex;
+  const todoIndex = e.target.parentNode.parentNode.dataset.index;
+  const projectIndex = e.target.parentNode.parentNode.dataset.projectindex;
   projects[projectIndex].todos.splice(todoIndex, 1);
   removeAllChild(todoList);
   renderTodos(projectIndex);
@@ -103,3 +105,23 @@ addGlobalEventListener("change", ".check-box", e => {
   removeAllChild(todoList);
   renderTodos(projectIndex);
 }, todoList);
+
+addGlobalEventListener("click", ".view-todo-btn", e => {
+  const todoIndex = e.target.parentNode.parentNode.dataset.index;
+  const projectIndex = e.target.parentNode.parentNode.dataset.projectindex;
+  removeAllChild(modal);
+  viewTodo(projectIndex, todoIndex);
+  modal.showModal();
+}, todoList);
+
+modal.addEventListener("click", e => {
+  const dialogDimensions = modal.getBoundingClientRect()
+  if (
+    e.clientX < dialogDimensions.left ||
+    e.clientX > dialogDimensions.right ||
+    e.clientY < dialogDimensions.top ||
+    e.clientY > dialogDimensions.bottom
+  ) {
+    modal.close()
+  }
+})

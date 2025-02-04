@@ -5,6 +5,7 @@ const projectList = document.querySelector(".project-list");
 const todoSection = document.querySelector(".todo-section");
 const todoHead = document.querySelector(".todo-head");
 const todoList = document.querySelector(".todo-list");
+const modal = document.querySelector(".view-todo-modal");
 
 export function renderProjects() {
   for(let i = 0; i < projects.length; i++){
@@ -77,9 +78,16 @@ export function renderTodos(index){
     const todoPriority = document.createElement("span");
     todoPriority.textContent = `Priority: ${projects[index].todos[i].priority}`;
     
+    const buttonDiv = document.createElement("div");
+    buttonDiv.classList.add("button-div");
+
     const delTodoBtn = document.createElement("button");
     delTodoBtn.classList.add("delete-todo-btn");
     delTodoBtn.textContent = "X";
+
+    const viewTodoBtn = document.createElement("button");
+    viewTodoBtn.classList.add("view-todo-btn");
+    viewTodoBtn.textContent = "View";
 
     if(projects[index].todos[i].completed){
       todoTitle.style.textDecoration = "line-through";
@@ -96,8 +104,29 @@ export function renderTodos(index){
     todoDiv.appendChild(todoTitle);
     todoDiv.appendChild(todoDueDate);
     todoDiv.appendChild(todoPriority);
-    todoDiv.appendChild(delTodoBtn);
+    buttonDiv.appendChild(viewTodoBtn);
+    buttonDiv.appendChild(delTodoBtn);
+    todoDiv.appendChild(buttonDiv);
     todoList.appendChild(todoDiv);
     
   }
+}
+
+export function viewTodo(index, i){
+  const todoTitle = document.createElement("div");
+  todoTitle.textContent = `Title: ${projects[index].todos[i].title}`;
+
+  const todoDueDate = document.createElement("div");
+  todoDueDate.textContent = `Due Date: ${projects[index].todos[i].dueDate}`;
+
+  const todoDescription = document.createElement("div");
+  todoDescription.textContent = `Description: ${projects[index].todos[i].description}`;
+
+  const todoPriority = document.createElement("div");
+  todoPriority.textContent = `Priority: ${projects[index].todos[i].priority}`;
+
+  modal.appendChild(todoTitle);
+  modal.appendChild(todoDescription);
+  modal.appendChild(todoDueDate);
+  modal.appendChild(todoPriority);
 }
