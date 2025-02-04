@@ -63,6 +63,11 @@ export function renderTodos(index){
       todoDiv.style.border = "2px solid red";
     }
 
+    const checkBox = document.createElement("input");
+    checkBox.classList.add("check-box");
+    checkBox.type = "checkbox";
+    checkBox.checked = projects[index].todos[i].completed;
+
     const todoTitle = document.createElement("span");
     todoTitle.textContent = `Title: ${projects[index].todos[i].title}`;
 
@@ -71,16 +76,28 @@ export function renderTodos(index){
 
     const todoPriority = document.createElement("span");
     todoPriority.textContent = `Priority: ${projects[index].todos[i].priority}`;
-
+    
     const delTodoBtn = document.createElement("button");
     delTodoBtn.classList.add("delete-todo-btn");
     delTodoBtn.textContent = "X";
 
+    if(projects[index].todos[i].completed){
+      todoTitle.style.textDecoration = "line-through";
+      todoDueDate.style.textDecoration = "line-through";
+      todoPriority.style.textDecoration = "line-through";
+    }
+    else{
+      todoTitle.style.textDecoration = "none";
+      todoDueDate.style.textDecoration = "none";
+      todoPriority.style.textDecoration = "none";
+    }
+
+    todoDiv.appendChild(checkBox);
     todoDiv.appendChild(todoTitle);
     todoDiv.appendChild(todoDueDate);
     todoDiv.appendChild(todoPriority);
     todoDiv.appendChild(delTodoBtn);
     todoList.appendChild(todoDiv);
-
+    
   }
 }

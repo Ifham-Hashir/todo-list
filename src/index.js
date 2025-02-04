@@ -35,6 +35,7 @@ const projectList = document.querySelector(".project-list");
 const todoHead = document.querySelector(".todo-head");
 const todoList = document.querySelector(".todo-list");
 
+
 addProjectBtn.addEventListener("click", () => {
     projectDialog.showModal();  // Show the dialog box
 });
@@ -63,7 +64,6 @@ projectForm.addEventListener("submit", (event) => {
 
 renderProjects();
 
-
 addGlobalEventListener("click", ".delete-project-btn", e => {
   const index = e.target.parentNode.dataset.index;
   deleteProject(index);
@@ -88,6 +88,18 @@ addGlobalEventListener("click", ".delete-todo-btn", e => {
   const todoIndex = e.target.parentNode.dataset.index;
   const projectIndex = e.target.parentNode.dataset.projectindex;
   projects[projectIndex].todos.splice(todoIndex, 1);
+  removeAllChild(todoList);
+  renderTodos(projectIndex);
+}, todoList);
+
+addGlobalEventListener("change", ".check-box", e => {
+  const todoIndex = e.target.parentNode.dataset.index;
+  const projectIndex = e.target.parentNode.dataset.projectindex;
+  if(e.target.checked){
+    projects[projectIndex].todos[todoIndex].completed = true;
+  }else{
+    projects[projectIndex].todos[todoIndex].completed = false;
+  }
   removeAllChild(todoList);
   renderTodos(projectIndex);
 }, todoList);
