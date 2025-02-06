@@ -5,7 +5,7 @@ const projectList = document.querySelector(".project-list");
 const todoSection = document.querySelector(".todo-section");
 const todoHead = document.querySelector(".todo-head");
 const todoList = document.querySelector(".todo-list");
-const modal = document.querySelector(".view-todo-modal");
+const todoDialog = document.querySelector(".todo-dialog");
 
 export function renderProjects() {
   for(let i = 0; i < projects.length; i++){
@@ -78,8 +78,8 @@ export function renderTodos(index){
     const todoPriority = document.createElement("span");
     todoPriority.textContent = `Priority: ${projects[index].todos[i].priority}`;
     
-    const buttonDiv = document.createElement("div");
-    buttonDiv.classList.add("button-div");
+    const todoButtonDiv = document.createElement("div");
+    todoButtonDiv.classList.add("todo-button-div");
 
     const delTodoBtn = document.createElement("button");
     delTodoBtn.classList.add("delete-todo-btn");
@@ -104,29 +104,26 @@ export function renderTodos(index){
     todoDiv.appendChild(todoTitle);
     todoDiv.appendChild(todoDueDate);
     todoDiv.appendChild(todoPriority);
-    buttonDiv.appendChild(viewTodoBtn);
-    buttonDiv.appendChild(delTodoBtn);
-    todoDiv.appendChild(buttonDiv);
+    todoButtonDiv.appendChild(viewTodoBtn);
+    todoButtonDiv.appendChild(delTodoBtn);
+    todoDiv.appendChild(todoButtonDiv);
     todoList.appendChild(todoDiv);
     
   }
 }
 
 export function viewTodo(index, i){
-  const todoTitle = document.createElement("div");
-  todoTitle.textContent = `Title: ${projects[index].todos[i].title}`;
+  const todoTitle = document.querySelector("#title");
+  todoTitle.value = `${projects[index].todos[i].title}`;
 
-  const todoDueDate = document.createElement("div");
-  todoDueDate.textContent = `Due Date: ${projects[index].todos[i].dueDate}`;
+  const todoDueDate = document.querySelector("#duedate");
+  todoDueDate.value = `${projects[index].todos[i].dueDate}`;
 
-  const todoDescription = document.createElement("div");
-  todoDescription.textContent = `Description: ${projects[index].todos[i].description}`;
+  const todoDescription = document.querySelector("#description");
+  todoDescription.value = `${projects[index].todos[i].description}`;
 
-  const todoPriority = document.createElement("div");
-  todoPriority.textContent = `Priority: ${projects[index].todos[i].priority}`;
+  const todoPriority = document.querySelector("#priority");
+  todoPriority.value = `${projects[index].todos[i].priority}`;
 
-  modal.appendChild(todoTitle);
-  modal.appendChild(todoDescription);
-  modal.appendChild(todoDueDate);
-  modal.appendChild(todoPriority);
 }
+

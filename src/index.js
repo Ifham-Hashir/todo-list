@@ -12,16 +12,16 @@ import "./styles.css";
 const project = createProject("Default");
 projects.push(project);
 
-const todo1 = addTodo("Study Arabic", "Read Dream Arabic Textbook", "7-02-2025", "high");
-const todo2 = addTodo("Todo-List", "Add the add todo functionality", "22-02-2025", "low");
+const todo1 = addTodo("Study Arabic", "Read Dream Arabic Textbook", "2025-02-07", "high");
+const todo2 = addTodo("Todo-List", "Add the add todo functionality", "2025-02-09", "low");
 project.todos.push(todo1);
 project.todos.push(todo2);
 
 const project2 = createProject("Messi");
 projects.push(project2);
 
-const todo3 = addTodo("read book", "harry potter", "22-01-2025", "mid");
-const todo4 = addTodo("watch movie", "harry potter", "22-01-2025", "low");
+const todo3 = addTodo("read book", "harry potter", "2025-02-08", "mid");
+const todo4 = addTodo("watch movie", "harry potter", "2025-02-10", "low");
 project2.todos.push(todo3);
 project2.todos.push(todo4);
 console.log(projects);
@@ -35,7 +35,7 @@ const cancelBtn = document.getElementById("cancelBtn");
 const projectList = document.querySelector(".project-list");
 const todoHead = document.querySelector(".todo-head");
 const todoList = document.querySelector(".todo-list");
-const modal = document.querySelector(".view-todo-modal");
+const todoDialog = document.querySelector(".todo-dialog");
 
 
 addProjectBtn.addEventListener("click", () => {
@@ -109,19 +109,19 @@ addGlobalEventListener("change", ".check-box", e => {
 addGlobalEventListener("click", ".view-todo-btn", e => {
   const todoIndex = e.target.parentNode.parentNode.dataset.index;
   const projectIndex = e.target.parentNode.parentNode.dataset.projectindex;
-  removeAllChild(modal);
   viewTodo(projectIndex, todoIndex);
-  modal.showModal();
+  todoDialog.showModal();
 }, todoList);
 
-modal.addEventListener("click", e => {
-  const dialogDimensions = modal.getBoundingClientRect()
+todoDialog.addEventListener("click", e => {
+  const dialogDimensions = todoDialog.getBoundingClientRect()
   if (
     e.clientX < dialogDimensions.left ||
     e.clientX > dialogDimensions.right ||
     e.clientY < dialogDimensions.top ||
     e.clientY > dialogDimensions.bottom
   ) {
-    modal.close()
+    todoDialog.close()
   }
-})
+});
+

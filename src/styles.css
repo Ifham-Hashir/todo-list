@@ -53,7 +53,7 @@ body{
   padding: 4px;
 }
 
-#projectDialog, .view-todo-modal {
+#projectDialog, .todo-dialog {
   margin: auto;
   padding: 16px;
 }
@@ -82,8 +82,13 @@ body{
   margin: 16px;
 }
 
-.button-div {
+.todo-button-div {
   display: flex;
   gap: 8px;
 }
 
+.todo-form > div{
+  margin: 8px;
+  display: grid;
+  gap: 12px;
+}
