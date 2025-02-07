@@ -36,7 +36,7 @@ const projectList = document.querySelector(".project-list");
 const todoHead = document.querySelector(".todo-head");
 const todoList = document.querySelector(".todo-list");
 const todoDialog = document.querySelector(".todo-dialog");
-
+const todoSection = document.querySelector(".todo-section");
 
 addProjectBtn.addEventListener("click", () => {
     projectDialog.showModal();  // Show the dialog box
@@ -83,6 +83,8 @@ addGlobalEventListener("click", ".project-name", e => {
   removeAllChild(todoList);
   todoHead.textContent = projects[index].name;
   renderTodos(index);
+  const addTodoBtn = document.querySelector(".add-todo-btn");
+  addTodoBtn.setAttribute("data-projectindex", index);
 }, projectList);
 
 
@@ -112,23 +114,7 @@ const todoDueDate = document.querySelector("#duedate");
 const todoDescription = document.querySelector("#description");
 const todoPriority = document.querySelector("#priority");
 
-addGlobalEventListener("click", ".view-todo-btn", e => {
-  const todoIndex = e.target.parentNode.parentNode.dataset.index;
-  const projectIndex = e.target.parentNode.parentNode.dataset.projectindex;
-  viewTodo(projectIndex, todoIndex);
-  todoDialog.showModal();
 
-  todoForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    projects[projectIndex].todos[todoIndex].title = todoTitle.value.trim();
-    projects[projectIndex].todos[todoIndex].description = todoDescription.value.trim();
-    projects[projectIndex].todos[todoIndex].dueDate = todoDueDate.value.trim();
-    projects[projectIndex].todos[todoIndex].priority = todoPriority.value.trim();
-    todoDialog.close(); 
-    removeAllChild(todoList);
-    renderTodos(projectIndex);
-  });
-}, todoList);
 
 todoDialog.addEventListener("click", e => {
   const dialogDimensions = todoDialog.getBoundingClientRect()
@@ -142,4 +128,56 @@ todoDialog.addEventListener("click", e => {
   }
 });
 
+let isEditing = false; // Flag to check if we're editing
+let editingProjectIndex = null;
+let editingTodoIndex = null;
 
+// Handle clicking "Edit Todo"
+addGlobalEventListener("click", ".view-todo-btn", (e) => {
+  const todoIndex = e.target.parentNode.parentNode.dataset.index;
+  const projectIndex = e.target.parentNode.parentNode.dataset.projectindex;
+
+  isEditing = true; // Mark as edit mode
+  editingProjectIndex = projectIndex;
+  editingTodoIndex = todoIndex;
+
+  viewTodo(projectIndex, todoIndex);
+  todoDialog.showModal();
+});
+
+// Handle clicking "Add Todo"
+addGlobalEventListener("click", ".add-todo-btn", (e) => {
+  const projectIndex = e.target.dataset.projectindex;
+
+  isEditing = false; // Mark as add mode
+  editingProjectIndex = projectIndex;
+  editingTodoIndex = null;
+
+  todoDialog.showModal();
+});
+
+// Attach submit event **only once**
+todoForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (isEditing) {
+    // Edit the existing todo
+    projects[editingProjectIndex].todos[editingTodoIndex].title = todoTitle.value.trim();
+    projects[editingProjectIndex].todos[editingTodoIndex].description = todoDescription.value.trim();
+    projects[editingProjectIndex].todos[editingTodoIndex].dueDate = todoDueDate.value.trim();
+    projects[editingProjectIndex].todos[editingTodoIndex].priority = todoPriority.value.trim();
+  } else {
+    // Add a new todo
+    const todo = addTodo(
+      todoTitle.value.trim(),
+      todoDescription.value.trim(),
+      todoDueDate.value.trim(),
+      todoPriority.value.trim()
+    );
+    projects[editingProjectIndex].todos.push(todo);
+  }
+
+  todoDialog.close();
+  removeAllChild(todoList);
+  renderTodos(editingProjectIndex);
+});
