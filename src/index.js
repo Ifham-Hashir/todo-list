@@ -9,22 +9,24 @@ import { removeAllChild } from "./dom";
 import { viewTodo } from "./dom";
 import "./styles.css";
 
+
 const project = createProject("Default");
 projects.push(project);
 
 const todo1 = addTodo("Study Arabic", "Read Dream Arabic Textbook", "2025-02-07", "high");
-const todo2 = addTodo("Todo-List", "Add the add todo functionality", "2025-02-09", "low");
+const todo2 = addTodo("Read Book", "Harry Potter", "2025-02-08", "mid");
+const todo3 = addTodo("Todo-List", "Add the add todo functionality", "2025-02-09", "low");
 project.todos.push(todo1);
 project.todos.push(todo2);
+project.todos.push(todo3);
+// const project2 = createProject("Messi");
+// projects.push(project2);
 
-const project2 = createProject("Messi");
-projects.push(project2);
-
-const todo3 = addTodo("read book", "harry potter", "2025-02-08", "mid");
-const todo4 = addTodo("watch movie", "harry potter", "2025-02-10", "low");
-project2.todos.push(todo3);
-project2.todos.push(todo4);
-console.log(projects);
+// const todo3 = addTodo("read book", "harry potter", "2025-02-08", "mid");
+// const todo4 = addTodo("watch movie", "harry potter", "2025-02-10", "low");
+// project2.todos.push(todo3);
+// project2.todos.push(todo4);
+// console.log(projects);
 
 
 const projectDialog = document.getElementById("projectDialog");
@@ -159,7 +161,6 @@ addGlobalEventListener("click", ".add-todo-btn", (e) => {
 // Attach submit event **only once**
 todoForm.addEventListener("submit", (event) => {
   event.preventDefault();
-
   if (isEditing) {
     // Edit the existing todo
     projects[editingProjectIndex].todos[editingTodoIndex].title = todoTitle.value.trim();
@@ -178,6 +179,11 @@ todoForm.addEventListener("submit", (event) => {
   }
 
   todoDialog.close();
+  todoForm.reset();
   removeAllChild(todoList);
   renderTodos(editingProjectIndex);
 });
+
+import { format } from "date-fns";
+const today = format(new Date(), "yyyy-MM-dd");
+todoDueDate.setAttribute("min", today);
