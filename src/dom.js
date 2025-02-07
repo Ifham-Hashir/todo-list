@@ -55,13 +55,13 @@ export function renderTodos(index){
     todoDiv.classList.add("todo-div");
 
     if(projects[index].todos[i].priority === "low"){
-      todoDiv.style.border = "2px solid green";
+      todoDiv.style.borderBottom = "8px solid rgb(13, 153, 57)";
     }
     else if(projects[index].todos[i].priority === "mid"){
-      todoDiv.style.border = "2px solid blue";
+      todoDiv.style.borderBottom = "8px solid rgb(18, 85, 173)";
     }
     else{
-      todoDiv.style.border = "2px solid red";
+      todoDiv.style.borderBottom = "8px solid rgb(234, 88, 88)";
     }
 
     const checkBox = document.createElement("input");
@@ -87,7 +87,7 @@ export function renderTodos(index){
 
     const viewTodoBtn = document.createElement("button");
     viewTodoBtn.classList.add("view-todo-btn");
-    viewTodoBtn.textContent = "View";
+    viewTodoBtn.textContent = "View/Edit";
 
     if(projects[index].todos[i].completed){
       todoTitle.style.textDecoration = "line-through";

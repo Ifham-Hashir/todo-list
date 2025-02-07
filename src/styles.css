@@ -12,13 +12,13 @@ body{
 }
 
 .project-section {
-  border: 2px solid blue;
+  border: 2px solid black;
   padding: 32px;
   height: 100vh;
 }
 
 .todo-section {
-  border: 2px solid red;
+  border: 2px solid black;
   padding: 32px;
 }
 
@@ -91,4 +91,11 @@ body{
   margin: 8px;
   display: grid;
   gap: 12px;
+}
+
+textarea{
+  min-height: 100px;
+  max-height: 100px;
+  min-width: 164px;
+  max-width: 164px;
 }

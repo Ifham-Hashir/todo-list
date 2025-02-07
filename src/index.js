@@ -106,11 +106,28 @@ addGlobalEventListener("change", ".check-box", e => {
   renderTodos(projectIndex);
 }, todoList);
 
+const todoForm = document.querySelector(".todo-form");
+const todoTitle = document.querySelector("#title");
+const todoDueDate = document.querySelector("#duedate");
+const todoDescription = document.querySelector("#description");
+const todoPriority = document.querySelector("#priority");
+
 addGlobalEventListener("click", ".view-todo-btn", e => {
   const todoIndex = e.target.parentNode.parentNode.dataset.index;
   const projectIndex = e.target.parentNode.parentNode.dataset.projectindex;
   viewTodo(projectIndex, todoIndex);
   todoDialog.showModal();
+
+  todoForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    projects[projectIndex].todos[todoIndex].title = todoTitle.value.trim();
+    projects[projectIndex].todos[todoIndex].description = todoDescription.value.trim();
+    projects[projectIndex].todos[todoIndex].dueDate = todoDueDate.value.trim();
+    projects[projectIndex].todos[todoIndex].priority = todoPriority.value.trim();
+    todoDialog.close(); 
+    removeAllChild(todoList);
+    renderTodos(projectIndex);
+  });
 }, todoList);
 
 todoDialog.addEventListener("click", e => {
@@ -124,4 +141,5 @@ todoDialog.addEventListener("click", e => {
     todoDialog.close()
   }
 });
+
 
