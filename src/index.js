@@ -19,15 +19,8 @@ const todo3 = addTodo("Todo-List", "Add the add todo functionality", "2025-02-09
 project.todos.push(todo1);
 project.todos.push(todo2);
 project.todos.push(todo3);
-// const project2 = createProject("Messi");
-// projects.push(project2);
 
-// const todo3 = addTodo("read book", "harry potter", "2025-02-08", "mid");
-// const todo4 = addTodo("watch movie", "harry potter", "2025-02-10", "low");
-// project2.todos.push(todo3);
-// project2.todos.push(todo4);
-// console.log(projects);
-
+loadFromLocalStorage();
 
 const projectDialog = document.getElementById("projectDialog");
 const projectForm = document.getElementById("projectForm");
@@ -52,6 +45,7 @@ function addProject(name) {
   const newProject = createProject(name);
   projects.push(newProject);
   removeAllChild(projectList);
+  saveToLocalStorage();
   renderProjects();
 }
 
@@ -66,7 +60,6 @@ projectForm.addEventListener("submit", (event) => {
   console.log(projects);
 });
 
-renderProjects();
 
 addGlobalEventListener("click", ".delete-project-btn", e => {
   const index = e.target.parentNode.dataset.index;
@@ -77,6 +70,7 @@ addGlobalEventListener("click", ".delete-project-btn", e => {
     document.querySelector(".add-todo-btn").remove();
   }
   todoHead.textContent = "";
+  saveToLocalStorage();
   renderProjects();
 }, projectList);
 
@@ -95,6 +89,7 @@ addGlobalEventListener("click", ".delete-todo-btn", e => {
   const projectIndex = e.target.parentNode.parentNode.dataset.projectindex;
   projects[projectIndex].todos.splice(todoIndex, 1);
   removeAllChild(todoList);
+  saveToLocalStorage();
   renderTodos(projectIndex);
 }, todoList);
 
@@ -107,6 +102,7 @@ addGlobalEventListener("change", ".check-box", e => {
     projects[projectIndex].todos[todoIndex].completed = false;
   }
   removeAllChild(todoList);
+  saveToLocalStorage();
   renderTodos(projectIndex);
 }, todoList);
 
@@ -167,6 +163,7 @@ todoForm.addEventListener("submit", (event) => {
     projects[editingProjectIndex].todos[editingTodoIndex].description = todoDescription.value.trim();
     projects[editingProjectIndex].todos[editingTodoIndex].dueDate = todoDueDate.value.trim();
     projects[editingProjectIndex].todos[editingTodoIndex].priority = todoPriority.value.trim();
+    saveToLocalStorage();
   } else {
     // Add a new todo
     const todo = addTodo(
@@ -181,9 +178,27 @@ todoForm.addEventListener("submit", (event) => {
   todoDialog.close();
   todoForm.reset();
   removeAllChild(todoList);
+  saveToLocalStorage();
   renderTodos(editingProjectIndex);
 });
 
 import { format } from "date-fns";
 const today = format(new Date(), "yyyy-MM-dd");
 todoDueDate.setAttribute("min", today);
+
+function saveToLocalStorage(){
+  localStorage.setItem("projects", JSON.stringify(projects));
+}
+
+function loadFromLocalStorage() {
+  const storedProjects = localStorage.getItem("projects");
+  if (storedProjects) {
+      const parsedProjects = JSON.parse(storedProjects);
+
+      // Instead of reassigning projects, update its contents
+      projects.length = 0;  // Clear the existing array
+      projects.push(...parsedProjects);  // Push new data into the same array
+  }
+  renderProjects();
+}
+
