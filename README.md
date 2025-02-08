@@ -1,1 +1,1 @@
-Live Preview: https://github.com/Ifham-Hashir/todo-list/deployments/github-pages
+Live Preview: https://ifham-hashir.github.io/todo-list/
