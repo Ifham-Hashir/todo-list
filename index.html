@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO</title>
+<script defer src="main.js"></script></head>
+<body>
+  <dialog id="projectDialog">
+    <form id="projectForm">
+        <label for="projectName">Project Name:</label>
+        <input type="text" id="projectName" required>
+        <div class="dialog-buttons">
+          <button type="submit">Add</button>
+          <button type="button" id="cancelBtn">Cancel</button>
+        </div>
+    </form>
+  </dialog>
+
+  <dialog class="todo-dialog">
+    <form class="todo-form">
+      <div>
+        <label for="title">Title: </label>
+        <input type="text" id="title" maxlength="25" required>
+      </div>
+
+      <div>
+        <label for="description">Description: </label>
+        <textarea id="description" maxlength="100"></textarea>
+      </div>
+
+      <div>
+        <label for="duedate">DueDate: </label>
+        <input type="date" id="duedate">
+      </div>
+
+      <div>
+        <label for="priority">Priority: </label>
+        <select id="priority">
+          <option value="low">low</option>
+          <option value="mid">mid</option>
+          <option value="high">high</option>
+        </select>
+      </div>
+
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="project-section">
+    <button class = "add-project-btn">Add Projects</button>
+    <ul class="project-list"></ul>
+  </div>
+  <div class="todo-section">
+    <h2 class="todo-head"></h2>
+    <ul class="todo-list"></ul>
+  </div>
+</body>
+</html>
