@@ -5,10 +5,10 @@
   padding: 0px;
   list-style-type: none;
 }
-  
-body{
+
+body {
   display: grid;
-  grid-template-columns: minmax(200px, 1fr)  minmax(700px,4fr);
+  grid-template-columns: minmax(200px, 1fr) minmax(700px, 4fr);
 }
 
 .project-section {
@@ -26,34 +26,43 @@ body{
   margin-top: 16px;
 }
 
-.project-div{
+.project-div {
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
 }
 
-.project-name{
+.project-name {
   cursor: pointer;
   font-size: larger;
   font-weight: 800;
 }
 
-.add-project-btn, .delete-project-btn, .delete-todo-btn, .dialog-buttons > button , .add-todo-btn, .view-todo-btn {
+.add-project-btn,
+.delete-project-btn,
+.delete-todo-btn,
+.dialog-buttons > button,
+.add-todo-btn,
+.view-todo-btn {
   cursor: pointer;
   border: 1px solid black;
   background-color: white;
   text-align: center;
 }
 
-.delete-project-btn, .delete-todo-btn {
+.delete-project-btn,
+.delete-todo-btn {
   width: 32px;
 }
 
-.add-project-btn, .add-todo-btn, .view-todo-btn {
+.add-project-btn,
+.add-todo-btn,
+.view-todo-btn {
   padding: 4px;
 }
 
-#projectDialog, .todo-dialog {
+#projectDialog,
+.todo-dialog {
   margin: auto;
   padding: 16px;
 }
@@ -70,7 +79,7 @@ body{
   padding: 4px;
 }
 
-.todo-div{
+.todo-div {
   padding: 16px;
   border: 2px solid black;
   margin: 16px;
@@ -87,13 +96,13 @@ body{
   gap: 8px;
 }
 
-.todo-form > div{
+.todo-form > div {
   margin: 8px;
   display: grid;
   gap: 12px;
 }
 
-textarea{
+textarea {
   min-height: 100px;
   max-height: 100px;
   min-width: 164px;
